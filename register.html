@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心林肿瘤健康平台 - 用户注册</title>
+    <style>
+        /* 共用样式 */
+        :root {
+            --primary: #c3272b;  /* 中国红 */
+            --secondary: #2a5f8a;/* 青花蓝 */
+            --accent: #e6b33d;   /* 金 */
+            --bg: #f5efe0;       /* 宣纸色 */
+            --text: #3c2f2f;     /* 墨色 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('rice-paper-texture.jpg');
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 注册容器 */
+        .register-container {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border: 3px double var(--primary);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .register-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: url('chinese-pattern.png') repeat;
+            opacity: 0.1;
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        /* 注册标题 */
+        .register-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .register-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+        }
+
+        .register-header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .register-header p {
+            font-size: 1rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        /* 注册表单 */
+        .register-form .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .register-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .register-form input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+            transition: all 0.3s;
+        }
+
+        .register-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(195,39,43,0.2);
+        }
+
+        .register-form input::placeholder {
+            color: rgba(0,0,0,0.4);
+        }
+
+        /* 验证码区域 */
+        .captcha-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .captcha-group input {
+            flex: 1;
+            margin-right: 1rem;
+        }
+
+        .captcha-img {
+            width: 120px;
+            height: 40px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* 协议条款 */
+        .agreement {
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .agreement input {
+            margin-right: 0.5rem;
+        }
+
+        .agreement a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .agreement a:hover {
+            text-decoration: underline;
+        }
+
+        /* 注册按钮 */
+        .register-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .register-btn:hover {
+            background: #a71f23;
+            transform: translateY(-2px);
+        }
+
+        .register-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            bottom: -50%;
+            left: -50%;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotateZ(60deg) translate(-5em, 7.5em);
+            animation: sheen 3s infinite;
+        }
+
+        @keyframes sheen {
+            100% {
+                transform: rotateZ(60deg) translate(1em, -9em);
+            }
+        }
+
+        /* 登录链接 */
+        .login-link {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 0.3rem;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* 装饰元素 */
+        .decoration {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .decoration-1 {
+            top: 10%;
+            left: 5%;
+            background: url('cloud-left.png') no-repeat;
+        }
+
+        .decoration-2 {
+            bottom: 10%;
+            right: 5%;
+            background: url('cloud-right.png') no-repeat;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 1.5rem;
+            }
+            
+            .register-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .captcha-group {
+                flex-direction: column;
+            }
+            
+            .captcha-group input {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .captcha-img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration decoration-1"></div>
+    <div class="decoration decoration-2"></div>
+
+    <div class="register-container">
+        <div class="register-header">
+            <h1>用户注册</h1>
+            <p>加入心林肿瘤健康平台，开启健康管理之旅</p>
+        </div>
+        
+        <form class="register-form">
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" placeholder="请输入4-16位用户名" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">电子邮箱</label>
+                <input type="email" id="email" placeholder="请输入常用邮箱" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" placeholder="请输入6-20位密码" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-password">确认密码</label>
+                <input type="password" id="confirm-password" placeholder="请再次输入密码" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="captcha">验证码</label>
+                <div class="captcha-group">
+                    <input type="text" id="captcha" placeholder="请输入验证码" required>
+                    <div class="captcha-img" id="captcha-img">A7B9</div>
+                </div>
+            </div>
+            
+            <div class="agreement">
+                <input type="checkbox" id="agree" required>
+                <label for="agree">我已阅读并同意<a href="terms.html">《用户协议》</a>和<a href="privacy.html">《隐私政策》</a></label>
+            </div>
+            
+            <button type="submit" class="register-btn">注 册</button>
+        </form>
+        
+        <div class="login-link">
+            已有账号？<a href="login.html">立即登录</a>
+        </div>
+    </div>
+
+    <script>
+        // 验证码刷新
+        document.getElementById('captcha-img').addEventListener('click', function() {
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let captcha = '';
+            for(let i = 0; i < 4; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            this.textContent = captcha;
+        });
+
+        // 表单提交
+        document.querySelector('.register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 简单验证
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if(password !== confirmPassword) {
+                alert('两次输入的密码不一致');
+                return;
+            }
+            
+            // 这里添加实际的注册逻辑
+            alert('注册成功！即将跳转到登录页面');
+            // window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

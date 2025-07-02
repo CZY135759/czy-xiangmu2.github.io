@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食疗养生 - 心林肿瘤健康平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5efe0;
+            font-family: 'Inter', sans-serif;
+            color: #3c2f2f;
+        }
+
+        .header {
+            background-color: #c3272b;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://picsum.photos/1920/1080');
+            opacity: 0.1;
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .nav {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .nav li {
+            margin: 0 1.5rem;
+        }
+
+        .nav a {
+            color: #3c2f2f;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #c3272b;
+        }
+
+        .section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #c3272b;
+            margin-bottom: 2rem;
+        }
+
+        .diet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .diet-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .diet-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .diet-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .diet-card-content {
+            padding: 1.5rem;
+        }
+
+        .diet-card h3 {
+            font-size: 1.5rem;
+            color: #c3272b;
+            margin-bottom: 1rem;
+        }
+
+        .diet-card p {
+            color: #3c2f2f;
+        }
+
+        .footer {
+            background-color: #2a5f8a;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+        }
+
+        .footer a {
+            color: #e6b33d;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <div class="header">
+        <h1>食疗养生 - 心林智慧</h1>
+        <p>遵循中医理论，用食物滋养生命</p>
+    </div>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="zhongyao.html">中药调理</a></li>
+            <li><a href="zhenjiu.html">针灸疗法</a></li>
+            <li><a href="shiliao.html" class="active">食疗养生</a></li>
+            <li><a href="qigong.html">气功引导</a></li>
+        </ul>
+    </nav>
+    <!-- 食疗养生内容 -->
+    <section class="section">
+        <h2>食疗养生之道</h2>
+        <p>食疗养生是根据不同的体质、季节和疾病状况，选择合适的食物来调养身体，达到预防和治疗疾病的目的。以下是一些常见的食疗方案。</p>
+        <div class="diet-grid">
+            <div class="diet-card">
+                <img src="https://picsum.photos/300/200?random=4" alt="红枣桂圆粥">
+                <div class="diet-card-content">
+                    <h3>红枣桂圆粥</h3>
+                    <p>材料：红枣、桂圆、大米。做法：将红枣、桂圆和大米一起煮成粥。功效：补血养颜，养心安神，适合气血不足、失眠多梦的人群。</p>
+                </div>
+            </div>
+            <div class="diet-card">
+                <img src="https://picsum.photos/300/200?random=5" alt="绿豆薏仁汤">
+                <div class="diet-card-content">
+                    <h3>绿豆薏仁汤</h3>
+                    <p>材料：绿豆、薏仁。做法：将绿豆和薏仁洗净，加水煮成汤。功效：清热解毒，利水消肿，适合夏季暑热、湿气重的人群。</p>
+                </div>
+            </div>
+            <div class="diet-card">
+                <img src="https://picsum.photos/300/200?random=6" alt="山药百合粥">
+                <div class="diet-card-content">
+                    <h3>山药百合粥</h3>
+                    <p>材料：山药、百合、大米。做法：将山药、百合和大米一起煮成粥。功效：健脾益肺，滋阴润燥，适合脾胃虚弱、肺燥咳嗽的人群。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2025 中医传承 - 心林智慧. 保留所有权利.</p>
+        <div>
+            <a href="#"><i class="fab fa-weibo"></i></a>
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+</body>
+
+</html>    

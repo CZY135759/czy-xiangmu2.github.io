@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>营养咨询 - 心林肿瘤健康平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5efe0;
+            font-family: 'Inter', sans-serif;
+            color: #3c2f2f;
+        }
+
+        /* 导航栏样式 */
+        .nav {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .nav li {
+            margin: 0 1.5rem;
+        }
+
+        .nav a {
+            color: #3c2f2f;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #c3272b;
+        }
+
+        .nav a.active {
+            color: #c3272b;
+            font-weight: bold;
+        }
+
+        /* 轮播图样式 */
+        .slider {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .slider-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slider-slide.active {
+            opacity: 1;
+        }
+
+        .slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .slider-control {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .slider-control.active {
+            background-color: white;
+        }
+
+        /* 服务介绍样式 */
+        .service-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .service-section h2 {
+            font-size: 2.5rem;
+            color: #c3272b;
+            margin-bottom: 2rem;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-card-content {
+            padding: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: #c3272b;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #3c2f2f;
+        }
+
+        /* 专家团队样式 */
+        .expert-section {
+            padding: 4rem 0;
+            background-color: #fff9f0;
+            text-align: center;
+        }
+
+        .expert-section h2 {
+            font-size: 2.5rem;
+            color: #c3272b;
+            margin-bottom: 2rem;
+        }
+
+        .expert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .expert-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .expert-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .expert-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .expert-card-content {
+            padding: 1.5rem;
+        }
+
+        .expert-card h3 {
+            font-size: 1.5rem;
+            color: #c3272b;
+            margin-bottom: 0.5rem;
+        }
+
+        .expert-card p {
+            color: #3c2f2f;
+        }
+
+        /* 常见问题样式 */
+        .faq-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            color: #c3272b;
+            margin-bottom: 2rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .faq-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        .faq-card h3 {
+            font-size: 1.2rem;
+            color: #c3272b;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-card p {
+            color: #3c2f2f;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            background-color: #2a5f8a;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+        }
+
+        .footer a {
+            color: #e6b33d;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="zhongyao.html">中药调理</a></li>
+            <li><a href="zhenjiu.html">针灸疗法</a></li>
+            <li><a href="shiliao.html">食疗养生</a></li>
+            <li><a href="qigong.html">气功引导</a></li>
+            <li><a href="xinli.html">心理疏导</a></li>
+            <li><a href="yingyang.html" class="active">营养咨询</a></li>
+        </ul>
+    </nav>
+    <!-- 轮播图 -->
+    <div class="slider">
+        <div class="slider-slide active">
+            <img src="https://picsum.photos/1920/1080?random=1" alt="轮播图1">
+            <div class="slider-caption">合理营养，助力健康</div>
+        </div>
+        <div class="slider-slide">
+            <img src="https://picsum.photos/1920/1080?random=2" alt="轮播图2">
+            <div class="slider-caption">个性化营养方案，满足您的需求</div>
+        </div>
+        <div class="slider-slide">
+            <img src="https://picsum.photos/1920/1080?random=3" alt="轮播图3">
+            <div class="slider-caption">专业营养师，为您的健康把关</div>
+        </div>
+        <div class="slider-controls">
+            <div class="slider-control active" onclick="changeSlide(0)"></div>
+            <div class="slider-control" onclick="changeSlide(1)"></div>
+            <div class="slider-control" onclick="changeSlide(2)"></div>
+        </div>
+    </div>
+    <!-- 服务介绍 -->
+    <section class="service-section">
+        <h2>我们的营养咨询服务</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <img src="images/营养1.jpg" alt="个性化营养方案">
+                <div class="service-card-content">
+                    <h3>个性化营养方案</h3>
+                    <p>根据您的身体状况、饮食习惯和健康目标，制定专属的营养方案。</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="images/营养2.jpg@wm_1,k_cGljX2JqaHdhdGVyLmpwZw==" alt="疾病康复营养指导">
+                <div class="service-card-content">
+                    <h3>疾病康复营养指导</h3>
+                    <p>为患有特定疾病的人群提供针对性的营养指导，促进康复。</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="images/营养3.jpg" alt="营养知识科普讲座">
+                <div class="service-card-content">
+                    <h3>营养知识科普讲座</h3>
+                    <p>定期举办营养知识讲座，帮助您了解更多营养知识。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 专家团队 -->
+    <section class="expert-section">
+        <h2>专业营养专家团队</h2>
+        <div class="expert-grid">
+            <div class="expert-card">
+                <img src="images/zhuanjia1.jpg" alt="专家1">
+                <div class="expert-card-content">
+                    <h3>张营养师</h3>
+                    <p>拥有多年营养咨询经验，擅长制定个性化营养方案。</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/zhuanjia2.jpg" alt="专家2">
+                <div class="expert-card-content">
+                    <h3>李营养师</h3>
+                    <p>专注于疾病康复营养指导，帮助众多患者恢复健康。</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/zhuanjia3.png" alt="专家3">
+                <div class="expert-card-content">
+                    <h3>王营养师</h3>
+                    <p>在营养知识科普方面有丰富经验，深受学员喜爱。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 常见问题 -->
+    <section class="faq-section">
+        <h2>常见问题解答</h2>
+        <div class="faq-grid">
+            <div class="faq-card">
+                <h3>营养咨询服务收费吗？</h3>
+                <p>部分基础服务免费，具体收费项目会根据服务内容和时长确定，我们会提前告知。</p>
+            </div>
+            <div class="faq-card">
+                <h3>如何预约营养咨询服务？</h3>
+                <p>您可以在平台上在线预约，也可以拨打我们的咨询热线进行预约。</p>
+            </div>
+            <div class="faq-card">
+                <h3>营养方案多久调整一次？</h3>
+                <p>这取决于您的身体状况和健康目标，一般建议每 3 - 6 个月进行一次评估和调整。</p>
+            </div>
+        </div>
+    </section>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2025 心林肿瘤健康平台. 保留所有权利.</p>
+        <div>
+            <a href="#"><i class="fab fa-weibo"></i></a>
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-slide');
+        const controls = document.querySelectorAll('.slider-control');
+
+        function changeSlide(index) {
+            slides.forEach((slide) => {
+                slide.classList.remove('active');
+            });
+            controls.forEach((control) => {
+                control.classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            controls[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            changeSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+
+</html>    

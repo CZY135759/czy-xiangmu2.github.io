@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理疏导 - 心林肿瘤健康平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5efe0;
+            font-family: 'Inter', sans-serif;
+            color: #3c2f2f;
+        }
+
+        /* 导航栏样式 */
+        .nav {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .nav li {
+            margin: 0 1.5rem;
+        }
+
+        .nav a {
+            color: #3c2f2f;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #c3272b;
+        }
+
+        .nav a.active {
+            color: #c3272b;
+            font-weight: bold;
+        }
+
+        /* 英雄区域样式 */
+        .hero {
+            background-image: url('https://picsum.photos/1920/1080?random=1');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-btn {
+            background-color: #c3272b;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .hero-btn:hover {
+            background-color: #a02024;
+        }
+
+        /* 服务介绍样式 */
+        .service-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .service-section h2 {
+            font-size: 2.5rem;
+            color: #c3272b;
+            margin-bottom: 2rem;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-card-content {
+            padding: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: #c3272b;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #3c2f2f;
+        }
+
+        /* 专家团队样式 */
+        .expert-section {
+            padding: 4rem 0;
+            background-color: #fff9f0;
+            text-align: center;
+        }
+
+        .expert-section h2 {
+            font-size: 2.5rem;
+            color: #c3272b;
+            margin-bottom: 2rem;
+        }
+
+        .expert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .expert-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .expert-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .expert-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .expert-card-content {
+            padding: 1.5rem;
+        }
+
+        .expert-card h3 {
+            font-size: 1.5rem;
+            color: #c3272b;
+            margin-bottom: 0.5rem;
+        }
+
+        .expert-card p {
+            color: #3c2f2f;
+        }
+
+        /* 常见问题样式 */
+        .faq-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            color: #c3272b;
+            margin-bottom: 2rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .faq-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        .faq-card h3 {
+            font-size: 1.2rem;
+            color: #c3272b;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-card p {
+            color: #3c2f2f;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            background-color: #2a5f8a;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 1rem;
+        }
+
+        .footer a {
+            color: #e6b33d;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="zhongyao.html">中药调理</a></li>
+            <li><a href="zhenjiu.html">针灸疗法</a></li>
+            <li><a href="shiliao.html">食疗养生</a></li>
+            <li><a href="qigong.html">气功引导</a></li>
+            <li><a href="xinli.html" class="active">心理疏导</a></li>
+        </ul>
+    </nav>
+    <!-- 英雄区域 -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>专业心理疏导，为您的心灵护航</h1>
+            <p>在抗癌的道路上，我们懂您的焦虑与压力，专业心理团队助您重拾信心。</p>
+            <a href="#" class="hero-btn">立即咨询</a>
+        </div>
+    </div>
+    <!-- 服务介绍 -->
+    <section class="service-section">
+        <h2>我们的心理疏导服务</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <img src="https://picsum.photos/300/200?random=2" alt="个体咨询">
+                <div class="service-card-content">
+                    <h3>个体咨询</h3>
+                    <p>一对一专属心理辅导，深入了解您的困扰，制定个性化疏导方案。</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://picsum.photos/300/200?random=3" alt="团体辅导">
+                <div class="service-card-content">
+                    <h3>团体辅导</h3>
+                    <p>与其他病友共同分享与成长，在团体氛围中缓解孤独感，增强心理韧性。</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://picsum.photos/300/200?random=4" alt="家庭支持">
+                <div class="service-card-content">
+                    <h3>家庭支持</h3>
+                    <p>为患者家属提供心理指导，共同营造温暖的家庭环境，助力患者康复。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 专家团队 -->
+    <section class="expert-section">
+        <h2>专业心理专家团队</h2>
+        <div class="expert-grid">
+            <div class="expert-card">
+                <img src="images/心理师1.webp" alt="专家1">
+                <div class="expert-card-content">
+                    <h3>张医生</h3>
+                    <p>拥有多年临床心理咨询经验，擅长癌症患者心理干预。</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/心理师2.jpg" alt="专家2">
+                <div class="expert-card-content">
+                    <h3>李医生</h3>
+                    <p>专注于团体心理辅导，帮助众多患者走出心理阴霾。</p>
+                </div>
+            </div>
+            <div class="expert-card">
+                <img src="images/心理师3.webp" alt="专家3">
+                <div class="expert-card-content">
+                    <h3>王医生</h3>
+                    <p>在家庭心理支持方面有深入研究，为患者家庭提供有力帮助。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 常见问题 -->
+    <section class="faq-section">
+        <h2>常见问题解答</h2>
+        <div class="faq-grid">
+            <div class="faq-card">
+                <h3>心理疏导服务收费吗？</h3>
+                <p>部分基础服务免费，具体收费项目会根据服务内容和时长确定，我们会提前告知。</p>
+            </div>
+            <div class="faq-card">
+                <h3>如何预约心理疏导服务？</h3>
+                <p>您可以在平台上在线预约，也可以拨打我们的咨询热线进行预约。</p>
+            </div>
+            <div class="faq-card">
+                <h3>心理疏导需要多长时间？</h3>
+                <p>这取决于您的具体情况，一般个体咨询每次约 50 - 60 分钟，团体辅导每次约 90 - 120 分钟。</p>
+            </div>
+        </div>
+    </section>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2025 心林肿瘤健康平台. 保留所有权利.</p>
+        <div>
+            <a href="#"><i class="fab fa-weibo"></i></a>
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+</body>
+
+</html>    

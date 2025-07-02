@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心林肿瘤健康平台 - 专家团队</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary: #c3272b;
+            --secondary: #2a5f8a;
+            --accent: #e6b33d;
+            --bg: #f5efe0;
+            --text: #3c2f2f;
+            --light-bg: #fff9f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('rice-paper-texture.jpg');
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 顶部装饰 */
+        .top-decoration {
+            height: 80px;
+            background: url('chinese-border-top.png') repeat-x;
+            margin-bottom: -1px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 专家团队内容 */
+        .team-section {
+            padding: 3rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border-top: 3px solid var(--primary);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .team-card:hover .team-img img {
+            transform: scale(1.1);
+        }
+
+        .team-content {
+            padding: 1.5rem;
+        }
+
+        .team-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .team-content p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .team-content .position {
+            color: var(--secondary);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部装饰 -->
+    <div class="top-decoration"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="心林肿瘤健康平台">
+                <div class="logo-text">
+                    <h1>心林肿瘤健康平台</h1>
+                    <p>传承中医智慧 融合现代科技</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 专家团队内容 -->
+    <div class="container team-section">
+        <div class="section-header">
+            <h2>专家团队</h2>
+            <p>我们汇聚了一批经验丰富、医术精湛的肿瘤专家，为您的健康保驾护航。</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-img">
+                    <img src="images/zhuanjia1.jpg" alt="专家1">
+                </div>
+                <div class="team-content">
+                    <h3>张三</h3>
+                    <p class="position">主任医师</p>
+                    <p>毕业于知名医科大学，从事肿瘤治疗工作多年，擅长中西医结合治疗肿瘤，在业内享有较高声誉。</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-img">
+                    <img src="images/zhuanjia2.jpg" alt="专家2">
+                </div>
+                <div class="team-content">
+                    <h3>李四</h3>
+                    <p class="position">副主任医师</p>
+                    <p>专注于肿瘤营养研究，为众多患者制定个性化的营养方案，帮助患者提高生活质量。</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-img">
+                    <img src="images/zhuanjia3.png" alt="专家3">
+                </div>
+                <div class="team-content">
+                    <h3>王五</h3>
+                    <p class="position">主治医师</p>
+                    <p>在肿瘤康复治疗方面有着丰富的经验，致力于帮助患者恢复健康，回归正常生活。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h3>快速链接</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="yingyang.html">营养咨询</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h3>联系我们</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 地址：[具体地址]</p>
+                <p><i class="fas fa-phone"></i> 电话：[电话号码]</p>
+                <p><i class="fas fa-envelope"></i> 邮箱：[邮箱地址]</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>版权所有 &copy; 心林肿瘤健康平台</p>
+        </div>
+    </footer>
+</body>
+
+</html>

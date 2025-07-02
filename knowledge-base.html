@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心林肿瘤健康平台 - 肿瘤知识库</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary: #c3272b;  /* 中国红 */
+            --secondary: #2a5f8a;/* 青花蓝 */
+            --accent: #e6b33d;   /* 金 */
+            --bg: #f5efe0;       /* 宣纸色 */
+            --text: #3c2f2f;     /* 墨色 */
+            --light-bg: #fff9f0; /* 浅米黄 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('rice-paper-texture.jpg');
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 顶部装饰 */
+        .top-decoration {
+            height: 80px;
+            background: url('chinese-border-top.png') repeat-x;
+            margin-bottom: -1px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 知识库内容区域 */
+        .knowledge-section {
+            padding: 3rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .knowledge-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 3px solid var(--primary);
+        }
+
+        .knowledge-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .knowledge-content {
+            padding: 1.5rem;
+        }
+
+        .knowledge-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .knowledge-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .knowledge-link {
+            display: inline-block;
+            color: var(--secondary);
+            font-weight: bold;
+            position: relative;
+        }
+
+        .knowledge-link::after {
+            content: '→';
+            margin-left: 5px;
+            transition: margin-left 0.3s;
+        }
+
+        .knowledge-link:hover::after {
+            margin-left: 10px;
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-decoration"></div>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="心林肿瘤健康平台">
+                <div class="logo-text">
+                    <h1>心林肿瘤健康平台</h1>
+                    <p>传承中医智慧 融合现代科技</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="knowledge-base.html" class="active">肿瘤知识库</a></li>
+                <li><a href="data-visualization.html">数据可视化分析</a></li>
+                <li><a href="health-management.html">健康管理</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="knowledge-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>肿瘤知识库</h2>
+                <p>提供全面的肿瘤相关知识，帮助您更好地了解肿瘤。</p>
+            </div>
+            <div class="knowledge-grid">
+                <div class="knowledge-card">
+                    <div class="knowledge-content">
+                        <h3>肿瘤类型</h3>
+                        <p>详细介绍各类肿瘤，如肺癌、乳腺癌、结直肠癌等的特点和成因。</p>
+                        <a href="tumor-types.html" class="knowledge-link">了解更多</a>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-content">
+                        <h3>早期症状</h3>
+                        <p>了解肿瘤在早期可能出现的各种症状，以便及时发现和治疗。</p>
+                        <a href="early-symptoms.html" class="knowledge-link">了解更多</a>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-content">
+                        <h3>治疗方法</h3>
+                        <p>探索包括手术、放疗、化疗、靶向治疗等多种肿瘤治疗手段。</p>
+                        <a href="treatment-methods.html" class="knowledge-link">了解更多</a>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-content">
+                        <h3>预防措施</h3>
+                        <p>分享有效的肿瘤预防方法，如健康饮食、适量运动、戒烟限酒等。</p>
+                        <a href="yufamg.html" class="knowledge-link">了解更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                        <li><a href="data-visualization.html">数据可视化分析</a></li>
+                        <li><a href="health-management.html">健康管理</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>联系我们</h3>
+                    <div class="footer-contact">
+                        <p><i class="fa fa-map-marker"></i> 地址：[具体地址]</p>
+                        <p><i class="fa fa-phone"></i> 电话：[电话号码]</p>
+                        <p><i class="fa fa-envelope"></i> 邮箱：[邮箱地址]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 心林肿瘤健康平台. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理辅导 - 心林肿瘤健康平台</title>
+    <style>
+        :root {
+            --primary: #c3272b;  /* 中国红 */
+            --secondary: #2a5f8a;/* 青花蓝 */
+            --accent: #e6b33d;   /* 金 */
+            --bg: #f5efe0;       /* 宣纸色 */
+            --text: #3c2f2f;     /* 墨色 */
+            --light-bg: #fff9f0; /* 浅米黄 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('rice-paper-texture.jpg');
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 顶部装饰 */
+        .top-decoration {
+            height: 80px;
+            background: url('chinese-border-top.png') repeat-x;
+            margin-bottom: -1px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 页面内容 */
+        .page-content {
+            padding: 3rem 0;
+        }
+
+        .page-content h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .page-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-decoration"></div>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="心林肿瘤健康平台">
+                <div class="logo-text">
+                    <h1>心林肿瘤健康平台</h1>
+                    <p>传承中医智慧 融合现代科技</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="health-assessment.html">健康评估</a></li>
+                <li><a href="diet-advice.html">饮食建议</a></li>
+                <li><a href="exercise-plan.html">运动计划</a></li>
+                <li><a href="psychological-counseling.html" class="active">心理辅导</a></li>
+                <li><a href="rehabilitation-tracking.html">康复跟踪</a></li>
+                <li><a href="health-management.html">健康管理</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container page-content">
+        <h2>心理辅导</h2>
+        <p>在肿瘤治疗和康复过程中，心理状态对患者的恢复至关重要。以下是一些心理辅导的建议：</p>
+        <ul>
+            <li>保持积极的心态，相信自己能够战胜疾病。</li>
+            <li>与家人和朋友保持良好的沟通，分享自己的感受。</li>
+            <li>参加心理支持小组，与其他患者交流经验。</li>
+            <li>学习放松技巧，如深呼吸、冥想等。</li>
+        </ul>
+    </div>
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h3>快速链接</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="health-assessment.html">健康评估</a></li>
+                    <li><a href="diet-advice.html">饮食建议</a></li>
+                    <li><a href="exercise-plan.html">运动计划</a></li>
+                    <li><a href="psychological-counseling.html">心理辅导</a></li>
+                    <li><a href="rehabilitation-tracking.html">康复跟踪</a></li>
+                    <li><a href="health-management.html">健康管理</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h3>联系我们</h3>
+                <p><i class="fa fa-phone"></i> 123-456-7890</p>
+                <p><i class="fa fa-envelope"></i> info@example.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 心林肿瘤健康平台. 保留所有权利.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心林肿瘤健康平台 - 传承中医智慧 融合现代科技</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary: #c3272b;  /* 中国红 */
+            --secondary: #2a5f8a;/* 青花蓝 */
+            --accent: #e6b33d;   /* 金 */
+            --bg: #f5efe0;       /* 宣纸色 */
+            --text: #3c2f2f;     /* 墨色 */
+            --light-bg: #fff9f0; /* 浅米黄 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('images/rice-paper-texture.jpg');
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 顶部装饰 */
+        .top-decoration {
+            height: 80px;
+            background: url('images/chinese-border-top.png') repeat-x;
+            margin-bottom: -1px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: url('images/hero-bg.jpg') center/cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            max-width: 600px;
+            padding: 2rem;
+            background: rgba(195,39,43,0.7);
+            border-left: 5px solid var(--accent);
+        }
+
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .hero-btn:hover {
+            background: transparent;
+            color: white;
+            border-color: var(--accent);
+            text-decoration: none;
+            transform: translateY(-3px);
+        }
+
+        /* 特色服务 */
+        .features {
+            padding: 3rem 0;
+            background: url('images/pattern-bg.png');
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 3px solid var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .feature-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .feature-card:hover .feature-img img {
+            transform: scale(1.1);
+        }
+
+        .feature-content {
+            padding: 1.5rem;
+        }
+
+        .feature-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-content h3 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .feature-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .feature-link {
+            display: inline-block;
+            color: var(--secondary);
+            font-weight: bold;
+            position: relative;
+        }
+
+        .feature-link::after {
+            content: '→';
+            margin-left: 5px;
+            transition: margin-left 0.3s;
+        }
+
+        .feature-link:hover::after {
+            margin-left: 10px;
+        }
+
+        /* 中医特色 */
+        .tcm-section {
+            padding: 3rem 0;
+            background: var(--light-bg);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .tcm-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .tcm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .tcm-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(195,39,43,0.1);
+        }
+
+        .tcm-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .tcm-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: rgba(195,39,43,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .tcm-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .tcm-card p {
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        /* 数据可视化预览 */
+        .data-preview {
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .data-container {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .chart-container {
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+
+        .data-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1.5rem;
+        }
+
+        .data-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .data-tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .data-content {
+            display: none;
+        }
+
+        .data-content.active {
+            display: block;
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .hero-content {
+                max-width: 100%;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin: 0 0.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 300px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <!-- 引入ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 顶部装饰 -->
+    <div class="top-decoration"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="心林标志">
+                <div class="logo-text">
+                    <h1>心林肿瘤健康平台</h1>
+                    <p>传承中医智慧 · 融合现代科技</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">首页</a></li>
+                <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                <li><a href="data-visualization.html">数据可视化</a></li>
+                <li><a href="health-management.html">健康管理</a></li>
+                <li><a href="zhongyichuancheng.html">中医传承</a></li>
+                <li><a href="login.html">登录/注册</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>肿瘤防治 · 中医有方</h2>
+                <p>融合传统中医智慧与现代医学技术，为您提供个性化的肿瘤防治方案。传承千年中医精髓，守护您的健康人生。</p>
+                <a href="knowledge-base.html" class="hero-btn">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色服务 -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>平台特色服务</h2>
+                <p>我们整合中医辨证与现代诊疗技术，提供全方位的肿瘤防治解决方案</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="images/中医1.jpeg" alt="中医辨证">
+                    </div>
+                    <div class="feature-content">
+                        <h3><i class="fas fa-leaf"></i> 中医辨证分析</h3>
+                        <p>基于传统四诊合参，结合现代检查数据，精准分析肿瘤患者的中医证型，为个性化治疗提供依据。</p>
+                        <a href="zhongyichuancheng.html" class="feature-link">查看详情</a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="images/可视化.jpg" alt="数据可视化">
+                    </div>
+                    <div class="feature-content">
+                        <h3><i class="fas fa-chart-line"></i> 数据可视化分析</h3>
+                        <p>直观展示肿瘤发病率、疗效评估等数据，帮助您了解疾病趋势和治疗效果。</p>
+                        <a href="data-visualization.html" class="feature-link">查看详情</a>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-img">
+                        <img src="images/健康管理.jpeg" alt="健康管理">
+                    </div>
+                    <div class="feature-content">
+                        <h3><i class="fas fa-heartbeat"></i> 全方位健康管理</h3>
+                        <p>从饮食调理、运动养生到情志调摄，提供全面的肿瘤康复指导方案。</p>
+                        <a href="health-management.html" class="feature-link">查看详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 中医特色 -->
+    <section class="tcm-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>中医特色疗法</h2>
+                <p>传承千年中医智慧，融合现代医学技术，提供独特的肿瘤防治方案</p>
+            </div>
+            
+            <div class="tcm-grid">
+                <div class="tcm-card">
+                    <div class="tcm-icon">
+                        <i class="fas fa-prescription-bottle-alt"></i>
+                    </div>
+                    <h3>中药调理</h3>
+                    <p>根据患者体质和证型，个性化配制中药方剂，扶正祛邪，调理气血阴阳平衡。</p>
+                    <a href="zhongyao.html" class="feature-link">中药调理</a>
+                </div>
+                
+                <div class="tcm-card">
+                    <div class="tcm-icon">
+                        <i class="fas fa-acorn"></i>
+                    </div>
+                    <h3>针灸疗法</h3>
+                    <p>通过经络调理，缓解肿瘤相关症状，减轻放化疗副作用，提高生活质量。</p>
+                    <a href="zhenjiu.html" class="feature-link">针灸疗法</a>
+                </div>
+                
+                <div class="tcm-card">
+                    <div class="tcm-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>食疗养生</h3>
+                    <p>结合药食同源理论，提供个性化的饮食调理方案，增强体质，辅助治疗。</p>
+                    <a href="shiliao.html" class="feature-link">食疗养生</a>
+                </div>
+                
+                <div class="tcm-card">
+                    <div class="tcm-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3>气功导引</h3>
+                    <p>通过调身、调息、调心，改善气血运行，增强免疫力，促进康复。</p>
+                    <a href="qigong.html" class="feature-link">气功引导</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据可视化预览 -->
+    <section class="data-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2>肿瘤数据洞察</h2>
+                <p>基于全国肿瘤登记数据，可视化展示肿瘤分布与治疗情况</p>
+            </div>
+            
+            <div class="data-container">
+                <div class="data-tabs">
+                    <div class="data-tab active" data-tab="incidence">发病率分布</div>
+                    <div class="data-tab" data-tab="treatment">治疗效果</div>
+                    <div class="data-tab" data-tab="tcm">中医证型</div>
+                </div>
+                
+                <div class="data-content active" id="incidence">
+                    <div class="chart-container" id="incidence-chart"></div>
+                    <p>上图展示了我国各省份肿瘤发病率分布情况，数据来源于国家肿瘤登记中心最新统计报告。</p>
+                </div>
+                
+                <div class="data-content" id="treatment">
+                    <div class="chart-container" id="treatment-chart"></div>
+                    <p>不同治疗方案的疗效比较，综合评估中西医结合治疗的优势与特点。</p>
+                </div>
+                
+                <div class="data-content" id="tcm">
+                    <div class="chart-container" id="tcm-chart"></div>
+                    <p>肿瘤患者常见中医证型分布，为辨证论治提供数据支持。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">网站首页</a></li>
+                        <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                        <li><a href="data-visualization.html">数据可视化</a></li>
+                        <li><a href="health-management.html">健康管理</a></li>
+                        <li><a href="zhongyichuancheng.html">中医传承</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>健康服务</h3>
+                    <ul class="footer-links">
+                        <li><a href="zaixianwenzhen.html">在线问诊</a></li>
+                        <li><a href="yuyue.html">预约挂号</a></li>
+                        <li><a href="kangfuzhidao.html">康复指导</a></li>
+                        <li><a href="xinli.html">心理疏导</a></li>
+                        <li><a href="yingyang.html">营养咨询</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>关于我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="pingtaijianjie.html">平台介绍</a></li>
+                        <li><a href="team.html">专家团队</a></li>
+                        <li><a href="hezuohuoban.html">合作机构</a></li>
+                        <li><a href="news.html">新闻动态</a></li>
+                        <li><a href="lianxiwm.html">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>联系我们</h3>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> 烟台市莱山区</p>
+                        <p><i class="fas fa-phone"></i> 400-888-9999</p>
+                        <p><i class="fas fa-envelope"></i> info@xinglin-health.com</p>
+                        <p><i class="fas fa-clock"></i> 周一至周五 8:30-17:30</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 心林肿瘤健康平台 版权所有 </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 引入Font Awesome图标 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    
+    <script>
+        // 数据可视化图表
+        const incidenceChart = echarts.init(document.getElementById('incidence-chart'));
+        incidenceChart.setOption({
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['肺癌', '胃癌', '肝癌', '乳腺癌', '结直肠癌']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: ['北京', '上海', '广东', '江苏', '浙江', '四川']
+            },
+            series: [
+                {
+                    name: '肺癌',
+                    type: 'bar',
+                    data: [182, 193, 156, 143, 134, 121],
+                    itemStyle: {
+                        color: '#c3272b'
+                    }
+                },
+                {
+                    name: '胃癌',
+                    type: 'bar',
+                    data: [132, 126, 98, 145, 112, 108],
+                    itemStyle: {
+                        color: '#2a5f8a'
+                    }
+                },
+                {
+                    name: '肝癌',
+                    type: 'bar',
+                    data: [121, 98, 134, 112, 87, 95],
+                    itemStyle: {
+                        color: '#e6b33d'
+                    }
+                },
+                {
+                    name: '乳腺癌',
+                    type: 'bar',
+                    data: [98, 112, 87, 76, 103, 78],
+                    itemStyle: {
+                        color: '#8e44ad'
+                    }
+                },
+                {
+                    name: '结直肠癌',
+                    type: 'bar',
+                    data: [87, 76, 103, 98, 112, 87],
+                    itemStyle: {
+                        color: '#27ae60'
+                    }
+                }
+            ]
+        });
+
+        const treatmentChart = echarts.init(document.getElementById('treatment-chart'));
+        treatmentChart.setOption({
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                top: '5%',
+                left: 'center'
+            },
+            series: [
+                {
+                    name: '治疗效果',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: '18',
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        { value: 45, name: '完全缓解', itemStyle: {color: '#27ae60'} },
+                        { value: 30, name: '部分缓解', itemStyle: {color: '#2ecc71'} },
+                        { value: 15, name: '疾病稳定', itemStyle: {color: '#f39c12'} },
+                        { value: 10, name: '疾病进展', itemStyle: {color: '#e74c3c'} }
+                    ]
+                }
+            ]
+        });
+
+        const tcmChart = echarts.init(document.getElementById('tcm-chart'));
+        tcmChart.setOption({
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data: ['气滞血瘀', '痰湿蕴结', '阴虚毒热', '气血两虚', '脾肾阳虚']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['肺癌', '胃癌', '肝癌', '乳腺癌', '结直肠癌']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '气滞血瘀',
+                    type: 'line',
+                    stack: 'Total',
+                    areaStyle: {},
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [38, 32, 28, 25, 30],
+                    itemStyle: {color: '#c3272b'}
+                },
+                {
+                    name: '痰湿蕴结',
+                    type: 'line',
+                    stack: 'Total',
+                    areaStyle: {},
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [25, 35, 22, 30, 28],
+                    itemStyle: {color: '#2a5f8a'}
+                },
+                {
+                    name: '阴虚毒热',
+                    type: 'line',
+                    stack: 'Total',
+                    areaStyle: {},
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [20, 15, 25, 20, 18],
+                    itemStyle: {color: '#e6b33d'}
+                },
+                {
+                    name: '气血两虚',
+                    type: 'line',
+                    stack: 'Total',
+                    areaStyle: {},
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [12, 10, 15, 18, 14],
+                    itemStyle: {color: '#8e44ad'}
+                },
+                {
+                    name: '脾肾阳虚',
+                    type: 'line',
+                    stack: 'Total',
+                    areaStyle: {},
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: [5, 8, 10, 7, 10],
+                    itemStyle: {color: '#27ae60'}
+                }
+            ]
+        });
+
+        // 标签页切换
+        document.querySelectorAll('.data-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有active类
+                document.querySelectorAll('.data-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                document.querySelectorAll('.data-content').forEach(c => {
+                    c.classList.remove('active');
+                });
+                
+                // 添加active类
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                
+                // 重新调整图表大小
+                if(tabId === 'incidence') {
+                    incidenceChart.resize();
+                } else if(tabId === 'treatment') {
+                    treatmentChart.resize();
+                } else {
+                    tcmChart.resize();
+                }
+            });
+        });
+
+        // 响应式调整
+        window.addEventListener('resize', function() {
+            incidenceChart.resize();
+            treatmentChart.resize();
+            tcmChart.resize();
+        });
+    </script>
+</body>
+</html>

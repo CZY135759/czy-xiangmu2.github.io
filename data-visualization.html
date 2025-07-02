@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心林肿瘤健康平台 - 数据可视化分析</title>
+    <!-- 引入 ECharts 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary: #c3272b;
+            --secondary: #2a5f8a;
+            --accent: #e6b33d;
+            --bg: #f5efe0;
+            --text: #3c2f2f;
+            --light-bg: #fff9f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('rice-paper-texture.jpg');
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 顶部装饰 */
+        .top-decoration {
+            height: 80px;
+            background: url('chinese-border-top.png') repeat-x;
+            margin-bottom: -1px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 数据可视化内容区域 */
+        .data-preview {
+            padding: 3rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .data-container {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .chart-container {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .data-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 1.5rem;
+        }
+
+        .data-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .data-tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .data-content {
+            display: none;
+        }
+
+        .data-content.active {
+            display: block;
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-decoration"></div>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="心林肿瘤健康平台">
+                <div class="logo-text">
+                    <h1>心林肿瘤健康平台</h1>
+                    <p>传承中医智慧 融合现代科技</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                <li><a href="data-visualization.html" class="active">数据可视化分析</a></li>
+                <li><a href="health-management.html">健康管理</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="data-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2>数据可视化分析</h2>
+                <p>通过直观的图表展示肿瘤相关数据，帮助您更好地理解数据背后的信息。</p>
+            </div>
+            <div class="data-container">
+                <div class="data-tabs">
+                    <div class="data-tab active" data-target="tab1">肿瘤发病率</div>
+                    <div class="data-tab" data-target="tab2">治疗效果分析</div>
+                    <div class="data-tab" data-target="tab3">患者年龄分布</div>
+                </div>
+                <div class="data-content active" id="tab1">
+                    <div class="chart-container" id="chart1"></div>
+                </div>
+                <div class="data-content" id="tab2">
+                    <div class="chart-container" id="chart2"></div>
+                </div>
+                <div class="data-content" id="tab3">
+                    <div class="chart-container" id="chart3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                        <li><a href="data-visualization.html">数据可视化分析</a></li>
+                        <li><a href="health-management.html">健康管理</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>联系我们</h3>
+                    <div class="footer-contact">
+                        <p><i class="fa fa-map-marker"></i> 地址：[具体地址]</p>
+                        <p><i class="fa fa-phone"></i> 电话：[电话号码]</p>
+                        <p><i class="fa fa-envelope"></i> 邮箱：[邮箱地址]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 心林肿瘤健康平台. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // 选项卡切换功能
+        const tabs = document.querySelectorAll('.data-tab');
+        const contents = document.querySelectorAll('.data-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.dataset.target;
+
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(targetId).classList.add('active');
+                
+                // 在切换标签时重新调整图表大小
+                window.dispatchEvent(new Event('resize'));
+            });
+        });
+
+        // 等待 DOM 加载完成后再初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            // 肿瘤发病率柱状图
+            const chart1 = echarts.init(document.getElementById('chart1'));
+            const option1 = {
+                title: {
+                    text: '各类肿瘤发病率统计',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['肺癌', '胃癌', '乳腺癌', '肝癌', '结直肠癌']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '发病率（每10万人）'
+                },
+                series: [{
+                    data: [120, 200, 150, 80, 70],
+                    type: 'bar',
+                    itemStyle: {
+                        color: '#c3272b'
+                    }
+                }]
+            };
+            chart1.setOption(option1);
+
+            // 治疗效果分析折线图
+            const chart2 = echarts.init(document.getElementById('chart2'));
+            const option2 = {
+                title: {
+                    text: '治疗效果分析',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['第 1 阶段', '第 2 阶段', '第 3 阶段', '第 4 阶段', '第 5 阶段']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '治愈率（%）'
+                },
+                series: [{
+                    data: [80, 85, 90, 92, 95],
+                    type: 'line',
+                    itemStyle: {
+                        color: '#2a5f8a'
+                    }
+                }]
+            };
+            chart2.setOption(option2);
+
+            // 患者年龄分布饼图
+            const chart3 = echarts.init(document.getElementById('chart3'));
+            const option3 = {
+                title: {
+                    text: '患者年龄分布',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                series: [{
+                    type: 'pie',
+                    radius: '50%',
+                    data: [
+                        { value: 30, name: '0 - 20 岁' },
+                        { value: 20, name: '21 - 40 岁' },
+                        { value: 35, name: '41 - 60 岁' },
+                        { value: 15, name: '61 岁以上' }
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+            };
+            chart3.setOption(option3);
+
+            // 监听窗口大小变化，调整图表大小
+            window.addEventListener('resize', function() {
+                chart1.resize();
+                chart2.resize();
+                chart3.resize();
+            });
+        });
+    </script>
+</body>
+
+</html>

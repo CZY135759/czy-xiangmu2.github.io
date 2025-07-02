@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中药调理 - 心林肿瘤健康平台</title>
+    <!-- 共用样式 -->
+    <style>
+        :root {
+            --primary: #c3272b;
+            --secondary: #2a5f8a;
+            --accent: #e6b33d;
+            --bg: #f5efe0;
+            --text: #3c2f2f;
+            --light-bg: #fff9f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('rice-paper-texture.jpg');
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 顶部装饰和导航栏样式与首页相同 */
+        .top-decoration {
+            height: 80px;
+            background: url('chinese-border-top.png') repeat-x;
+            margin-bottom: -1px;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 页面标题 */
+        .page-header {
+            background: url('herbs-bg.jpg') center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            border-left: 5px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* 内容区域 */
+        .content-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .section-title p {
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 1rem auto 0;
+        }
+
+        /* 中药卡片 */
+        .herb-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .herb-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .herb-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .herb-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .herb-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .herb-card:hover .herb-img img {
+            transform: scale(1.05);
+        }
+
+        .herb-content {
+            padding: 1.5rem;
+        }
+
+        .herb-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .herb-content h3 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .herb-content p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .herb-property {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+
+        .herb-property span:first-child {
+            font-weight: bold;
+            min-width: 80px;
+            color: var(--secondary);
+        }
+
+        /* 方剂展示 */
+        .prescription {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .prescription h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .prescription ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .prescription p {
+            margin-bottom: 1rem;
+        }
+
+        /* 底部样式与首页相同 */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .page-header {
+                height: 250px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .herb-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- 引入Font Awesome图标 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</head>
+<body>
+    <!-- 顶部装饰 -->
+    <div class="top-decoration"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="心林标志">
+                <div class="logo-text">
+                    <h1>心林肿瘤健康平台</h1>
+                    <p>传承中医智慧 · 融合现代科技</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                <li><a href="data-visualization.html">数据可视化</a></li>
+                <li><a href="health-management.html">健康管理</a></li>
+                <li><a href="zhongyichuancheng.html">中医传承</a></li>
+                <li><a href="login.html">登录/注册</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 页面标题 -->
+    <header class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>中药调理</h1>
+                <p>千年草本智慧，个性化配方调理，扶正祛邪，调和阴阳</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container">
+        <section class="content-section">
+            <div class="section-title">
+                <h2>中药调理肿瘤原理</h2>
+                <p>中药通过多靶点、多途径调节机体功能，达到抑制肿瘤、增强免疫、减轻副作用的效果</p>
+            </div>
+            
+            <div class="herb-cards">
+                <div class="herb-card">
+                    <div class="herb-img">
+                    </div>
+                    <div class="herb-content">
+                        <h3><i class="fas fa-seedling"></i> 扶正固本</h3>
+                        <p>通过补气养血、健脾益肾等法，增强机体免疫功能，提高抗病能力。</p>
+                        <div class="herb-property">
+                            <span>代表药材：</span>
+                            <span>黄芪、人参、灵芝、党参</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="herb-card">
+                    <div class="herb-img">
+                    </div>
+                    <div class="herb-content">
+                        <h3><i class="fas fa-leaf"></i> 祛邪抗癌</h3>
+                        <p>运用清热解毒、活血化瘀、化痰散结等法，直接抑制肿瘤生长。</p>
+                        <div class="herb-property">
+                            <span>代表药材：</span>
+                            <span>白花蛇舌草、半枝莲、莪术、三棱</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="herb-card">
+                    <div class="herb-img">
+                    </div>
+                    <div class="herb-content">
+                        <h3><i class="fas fa-heartbeat"></i> 减毒增效</h3>
+                        <p>减轻放化疗毒副作用，增强治疗效果，提高患者生活质量。</p>
+                        <div class="herb-property">
+                            <span>代表药材：</span>
+                            <span>女贞子、枸杞子、黄精、当归</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <div class="section-title">
+                <h2>常见肿瘤中药方剂</h2>
+                <p>根据中医辨证论治原则，针对不同证型选用相应方剂</p>
+            </div>
+            
+            <div class="prescription">
+                <h3>肺癌 - 益气养阴解毒方</h3>
+                <ul>
+                    <li>黄芪30g 益气固表</li>
+                    <li>沙参15g 养阴润肺</li>
+                    <li>麦冬12g 滋阴清热</li>
+                    <li>白花蛇舌草30g 清热解毒</li>
+                    <li>浙贝母10g 化痰散结</li>
+                </ul>
+                <p><strong>功效：</strong>益气养阴，清热解毒。适用于气阴两虚型肺癌患者。</p>
+                <p><strong>用法：</strong>水煎服，每日1剂，分2次服用。</p>
+            </div>
+            
+            <div class="prescription">
+                <h3>胃癌 - 健脾和胃解毒方</h3>
+                <ul>
+                    <li>党参15g 健脾益气</li>
+                    <li>白术12g 健脾燥湿</li>
+                    <li>茯苓15g 利水渗湿</li>
+                    <li>半枝莲30g 清热解毒</li>
+                    <li>莪术10g 活血化瘀</li>
+                </ul>
+                <p><strong>功效：</strong>健脾和胃，解毒化瘀。适用于脾胃虚弱型胃癌患者。</p>
+                <p><strong>用法：</strong>水煎服，每日1剂，分2次服用。</p>
+            </div>
+            
+            <div class="prescription">
+                <h3>乳腺癌 - 疏肝解郁散结方</h3>
+                <ul>
+                    <li>柴胡10g 疏肝解郁</li>
+                    <li>香附10g 理气止痛</li>
+                    <li>夏枯草15g 清肝散结</li>
+                    <li>山慈菇12g 化痰散结</li>
+                    <li>蒲公英30g 清热解毒</li>
+                </ul>
+                <p><strong>功效：</strong>疏肝解郁，化痰散结。适用于肝郁气滞型乳腺癌患者。</p>
+                <p><strong>用法：</strong>水煎服，每日1剂，分2次服用。</p>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <div class="section-title">
+                <h2>中药调理注意事项</h2>
+                <p>科学使用中药，确保安全有效</p>
+            </div>
+            
+            <div class="prescription">
+                <h3>用药原则</h3>
+                <ul>
+                    <li>必须在专业中医师指导下使用，不可自行配方</li>
+                    <li>根据患者体质、病情变化及时调整方剂</li>
+                    <li>注意药物配伍禁忌和剂量控制</li>
+                    <li>中西药联用需间隔2小时以上</li>
+                </ul>
+                
+                <h3 style="margin-top: 1.5rem;">饮食禁忌</h3>
+                <ul>
+                    <li>服用清热解毒药时忌食辛辣刺激性食物</li>
+                    <li>服用补益药时忌食萝卜、浓茶等破气食物</li>
+                    <li>服药期间避免生冷、油腻食物</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                        <li><a href="data-visualization.html">数据可视化</a></li>
+                        <li><a href="health-management.html">健康管理</a></li>
+                        <li><a href="zhongyichuancheng.html">中医传承</a></li>
+                        <li><a href="zhongyao.html">中药调理</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>中医特色</h3>
+                    <ul class="footer-links">
+                        <li><a href="zhongyao.html" class="active">中药调理</a></li>
+                        <li><a href="zhenjiu.html">针灸疗法</a></li>
+                        <li><a href="shiliao.html">食疗养生</a></li>
+                        <li><a href="qigong.html">气功导引</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>关于我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">平台介绍</a></li>
+                        <li><a href="team.html">专家团队</a></li>
+                        <li><a href="partner.html">合作机构</a></li>
+                        <li><a href="news.html">新闻动态</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>联系我们</h3>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> 北京市海淀区杏林路88号</p>
+                        <p><i class="fas fa-phone"></i> 400-888-9999</p>
+                        <p><i class="fas fa-envelope"></i> info@xinglin-health.com</p>
+                        <p><i class="fas fa-clock"></i> 周一至周五 8:30-17:30</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 心林肿瘤健康平台 版权所有 | 京ICP备12345678号 | 京卫网审[2023]第888号</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

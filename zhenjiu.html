@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>针灸疗法 - 心林肿瘤健康平台</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary: #c3272b;
+            --secondary: #2a5f8a;
+            --accent: #e6b33d;
+            --bg: #f5efe0;
+            --text: #3c2f2f;
+            --light-bg: #fff9f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('rice-paper-texture.jpg');
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 顶部装饰 */
+        .top-decoration {
+            height: 80px;
+            background: url('chinese-border-top.png') repeat-x;
+            margin-bottom: -1px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 内容区域 */
+        .content {
+            padding: 3rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .therapy-info {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .therapy-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .therapy-info p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .therapy-image {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .therapy-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-decoration"></div>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="心林肿瘤健康平台">
+                <div class="logo-text">
+                    <h1>心林肿瘤健康平台</h1>
+                    <p>传承中医智慧 融合现代科技</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                <li><a href="data-visualization.html">数据可视化</a></li>
+                <li><a href="health-management.html">健康管理</a></li>
+                <li><a href="zhongyichuancheng.html">中医传承</a></li>
+                <li><a href="zhenjiu.html" class="active">针灸疗法</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container content">
+        <div class="section-header">
+            <h2>针灸疗法</h2>
+            <p>针灸疗法是中医传统疗法中的瑰宝，历史悠久，疗效显著。</p>
+        </div>
+        <div class="therapy-image">
+        </div>
+        <div class="therapy-info">
+            <h3>疗法简介</h3>
+            <p>针灸疗法是以中医理论为指导，运用针刺与艾灸方法刺激人体特定穴位，以调节人体脏腑经络气血功能，从而达到防治疾病目的的一种治疗方法。它具有疏通经络、调和阴阳、扶正祛邪等作用。</p>
+        </div>
+        <div class="therapy-info">
+            <h3>治疗范围</h3>
+            <p>针灸疗法可用于治疗多种疾病，包括但不限于头痛、颈椎病、肩周炎、腰腿痛、失眠、消化系统疾病、妇科疾病等。在肿瘤治疗中，针灸也可以辅助缓解放化疗带来的副作用，如恶心、呕吐、乏力等。</p>
+        </div>
+        <div class="therapy-info">
+            <h3>疗法优势</h3>
+            <p>针灸疗法具有安全、有效、副作用小等优势。它是一种绿色疗法，不依赖药物，避免了药物可能带来的不良反应。同时，针灸治疗个性化强，医生会根据患者的具体情况进行辨证论治，制定个性化的治疗方案。</p>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h3>快速链接</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="knowledge-base.html">肿瘤知识库</a></li>
+                    <li><a href="data-visualization.html">数据可视化</a></li>
+                    <li><a href="health-management.html">健康管理</a></li>
+                    <li><a href="zhongyichuancheng.html">中医传承</a></li>
+                    <li><a href="zhenjiu.html">针灸疗法</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h3>联系我们</h3>
+                <p><i class="fa fa-map-marker"></i> 地址：[具体地址]</p>
+                <p><i class="fa fa-phone"></i> 电话：[电话号码]</p>
+                <p><i class="fa fa-envelope"></i> 邮箱：[邮箱地址]</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>版权所有 &copy; 心林肿瘤健康平台</p>
+        </div>
+    </footer>
+</body>
+
+</html>

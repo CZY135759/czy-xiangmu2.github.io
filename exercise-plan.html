@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心林肿瘤健康平台 - 运动计划</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary: #c3272b;
+            --secondary: #2a5f8a;
+            --accent: #e6b33d;
+            --bg: #f5efe0;
+            --text: #3c2f2f;
+            --light-bg: #fff9f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "华文楷体", "Microsoft YaHei", serif;
+        }
+
+        body {
+            background: var(--bg) url('rice-paper-texture.jpg');
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* 顶部装饰 */
+        .top-decoration {
+            height: 80px;
+            background: url('chinese-border-top.png') repeat-x;
+            margin-bottom: -1px;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* 运动计划页面样式 */
+        .exercise-section {
+            padding: 3rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .exercise-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border-top: 3px solid var(--primary);
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .exercise-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .exercise-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .exercise-card:hover .exercise-img img {
+            transform: scale(1.1);
+        }
+
+        .exercise-content {
+            padding: 1.5rem;
+        }
+
+        .exercise-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .exercise-content h3 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .exercise-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        /* 底部区域 */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+            text-decoration: none;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部装饰 -->
+    <div class="top-decoration"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="心林肿瘤健康平台">
+                <div class="logo-text">
+                    <h1>心林肿瘤健康平台</h1>
+                    <p>传承中医智慧 融合现代科技</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="#" class="active">运动计划</a></li>
+                <!-- 可以添加更多导航链接 -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 运动计划部分 -->
+    <section class="exercise-section container">
+        <div class="section-header">
+            <h2>专业运动计划</h2>
+            <p>为您提供个性化的肿瘤康复运动方案，助力您的健康恢复。</p>
+        </div>
+        <div class="exercise-grid">
+            <div class="exercise-card">
+                <div class="exercise-img">
+                    <img src="images/yoga.jpg" alt="瑜伽运动">
+                </div>
+                <div class="exercise-content">
+                    <h3><i class="fa fa-yoga"></i>瑜伽运动</h3>
+                    <p>瑜伽有助于增强身体柔韧性、平衡感和肌肉力量，同时减轻压力和焦虑，促进身心放松。</p>
+                    <a href="yoga.html" class="feature-link">查看详情 →</a>
+                </div>
+            </div>
+            <div class="exercise-card">
+                <div class="exercise-img">
+                    <img src="images/散步.jpg" alt="散步运动">
+                </div>
+                <div class="exercise-content">
+                    <h3><i class="fa fa-walking"></i>散步运动</h3>
+                    <p>散步是一种简单而有效的有氧运动，适合各个阶段的康复者，能提高心肺功能和新陈代谢。</p>
+                    <a href="walking.html" class="feature-link">查看详情 →</a>
+                </div>
+            </div>
+            <div class="exercise-card">
+                <div class="exercise-img">
+                    <img src="images/太极拳.webp" alt="太极拳运动">
+                </div>
+                <div class="exercise-content">
+                    <h3><i class="fa fa-taijiquan"></i>太极拳运动</h3>
+                    <p>太极拳融合了中医养生理念，动作缓慢柔和，能调节呼吸、增强免疫力和改善身体协调性。</p>
+                    <a href="taijiquan.html" class="feature-link">查看详情 →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h3>关于我们</h3>
+                <ul class="footer-links">
+                    <li><a href="#">平台介绍</a></li>
+                    <li><a href="#">团队成员</a></li>
+                    <li><a href="#">合作伙伴</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>服务内容</h3>
+                <ul class="footer-links">
+                    <li><a href="#">运动计划</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h3>联系我们</h3>
+                <p><i class="fa fa-map-marker"></i>地址：[具体地址]</p>
+                <p><i class="fa fa-phone"></i>电话：[电话号码]</p>
+                <p><i class="fa fa-envelope"></i>邮箱：[邮箱地址]</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 心林肿瘤健康平台 版权所有</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
